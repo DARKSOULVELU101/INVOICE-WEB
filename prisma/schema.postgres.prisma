@@ -1,0 +1,398 @@
+// GENVOUCH INVOICE STUDIO — Production (PostgreSQL / Neon) schema
+// Identical to schema.prisma but with a Postgres datasource.
+// Maintained in sync; used for the production database on Vercel/Neon.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ---------------------------------------------------------------------------
+// Identity & Organization
+// ---------------------------------------------------------------------------
+
+model User {
+  id            String    @id @default(cuid())
+  email         String    @unique
+  emailVerified DateTime?
+  name          String?
+  image         String?
+  passwordHash  String?
+  locale        String?   @default("en")
+  theme         String?   @default("light")
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  accounts     Account[]
+  sessions     Session[]
+  memberships  OrganizationMember[]
+  auditEntries AuditEntry[] @relation("ResponsibleEntry")
+  sentInvoices Invoice[]    @relation("InvoiceCreator")
+
+  @@map("users")
+}
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+  @@map("accounts")
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("sessions")
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+  @@map("verification_tokens")
+}
+
+model Organization {
+  id          String    @id @default(cuid())
+  name        String
+  slug        String    @unique
+  logo        String?
+  plan        String    @default("free")
+  status      String    @default("ACTIVE") // OrgStatus: ACTIVE | SUSPENDED | TRIAL
+  taxId       String?
+  country     String?
+  createdById String?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  members      OrganizationMember[]
+  businesses   Business[]
+  invoices     Invoice[]
+  customers    Customer[]
+  templates    InvoiceTemplate[]
+  taxRates     TaxRate[]
+  invitations  Invitation[]
+
+  @@index([slug])
+  @@map("organizations")
+}
+
+model OrganizationMember {
+  id             String   @id @default(cuid())
+  organizationId String
+  userId         String
+  role           String   @default("MEMBER") // OrgRole: OWNER | ADMIN | BILLING | MEMBER | VIEWER
+  accepted       Boolean  @default(false)
+  createdAt      DateTime @default(now())
+
+  organization Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  user         User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([organizationId, userId])
+  @@index([userId])
+  @@map("organization_members")
+}
+
+model Invitation {
+  id             String   @id @default(cuid())
+  organizationId String
+  email          String
+  role           String   @default("MEMBER") // OrgRole
+  token          String   @unique
+  expiresAt      DateTime
+  invitedById    String?
+  createdAt      DateTime @default(now())
+  acceptedAt     DateTime?
+
+  organization Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+
+  @@index([email])
+  @@map("invitations")
+}
+
+// ---------------------------------------------------------------------------
+// Business Profiles (multiple businesses per organization)
+// ---------------------------------------------------------------------------
+
+model Business {
+  id              String   @id @default(cuid())
+  organizationId  String
+  name            String
+  legalName       String?
+  type            String?  @default("SOLE_PROPRIETORSHIP") // BusinessType
+  email           String?
+  phone           String?
+  website         String?
+  addressLine1    String?
+  addressLine2    String?
+  city            String?
+  state           String?
+  postalCode      String?
+  country         String?
+  taxId           String? // GST/VAT/TIN
+  logo            String?
+  signature       String?
+  defaultCurrency String   @default("USD")
+  bankName        String?
+  bankAccountNo   String?
+  bankIFSC        String?
+  upiId           String?
+  walletAddress   String? // crypto (future)
+  isDefault       Boolean  @default(false)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  organization Organization  @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  invoices     Invoice[]
+  templates    InvoiceTemplate[]
+
+  @@index([organizationId])
+  @@map("businesses")
+}
+
+// ---------------------------------------------------------------------------
+// Customers
+// ---------------------------------------------------------------------------
+
+model Customer {
+  id             String   @id @default(cuid())
+  organizationId String
+  name           String
+  email          String?
+  phone          String?
+  company        String?
+  addressLine1   String?
+  addressLine2   String?
+  city           String?
+  state          String?
+  postalCode     String?
+  country        String?
+  taxId          String?
+  notes          String?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  organization Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  invoices     Invoice[]
+
+  @@index([organizationId, name])
+  @@map("customers")
+}
+
+// ---------------------------------------------------------------------------
+// Invoice Templates
+// ---------------------------------------------------------------------------
+
+model InvoiceTemplate {
+  id             String   @id @default(cuid())
+  organizationId String
+  businessId     String?
+  name           String
+  theme          String? // JSON string: color/font/advanced config
+  layout         String   @default("standard")
+  isDefault      Boolean  @default(false)
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  organization Organization  @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  business     Business?     @relation(fields: [businessId], references: [id], onDelete: SetNull)
+  invoices     Invoice[]
+
+  @@index([organizationId])
+  @@map("invoice_templates")
+}
+
+// ---------------------------------------------------------------------------
+// Currency & Tax
+// ---------------------------------------------------------------------------
+
+model TaxRate {
+  id             String   @id @default(cuid())
+  organizationId String
+  name           String // e.g. "GST 18%"
+  rate           Float    // 18.0
+  kind           String   @default("percentage") // percentage | fixed
+  appliesTo      String   @default("goods_services")
+  isDefault      Boolean  @default(false)
+  active         Boolean  @default(true)
+  createdAt      DateTime @default(now())
+
+  organization Organization         @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  lineItems     InvoiceLineItem[]   @relation("LineItemTaxRate")
+
+  @@index([organizationId])
+  @@map("tax_rates")
+}
+
+// ---------------------------------------------------------------------------
+// Invoices
+// ---------------------------------------------------------------------------
+
+model Invoice {
+  id             String    @id @default(cuid())
+  organizationId String
+  businessId     String
+  templateId     String?
+  customerId     String
+  createdById    String
+
+  number         String
+  type           String    @default("STANDARD") // InvoiceType: STANDARD | PROFORMA | ESTIMATE | RETAIL
+  status         String    @default("DRAFT") // InvoiceStatus: DRAFT|PENDING|SENT|PARTIALLY_PAID|PAID|OVERDUE|CANCELLED
+
+  issuedDate     DateTime
+  dueDate        DateTime?
+  currency       String    @default("USD")
+  exchangeRate   Float?    @default(1)
+
+  subtotal       Float     @default(0)
+  discount       Float     @default(0)
+  discountType   String    @default("fixed") // fixed | percentage
+  taxTotal       Float     @default(0)
+  total          Float     @default(0)
+  amountDue      Float     @default(0)
+
+  notes          String?
+  terms          String?
+  reference      String? // PO number etc.
+  publicToken    String?   @unique // signed/secure token for public share
+  publicLink     String?
+  viewedAt       DateTime?
+  sentAt         DateTime?
+  paidAt         DateTime?
+
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+
+  organization  Organization     @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  business      Business         @relation(fields: [businessId], references: [id])
+  template      InvoiceTemplate? @relation(fields: [templateId], references: [id], onDelete: SetNull)
+  customer      Customer         @relation(fields: [customerId], references: [id])
+  createdBy     User             @relation("InvoiceCreator", fields: [createdById], references: [id])
+
+  lineItems InvoiceLineItem[]
+  payments  Payment[]
+  emails    InvoiceEmailLog[]
+  audit     AuditEntry[]
+
+  @@unique([organizationId, number])
+  @@index([organizationId, status])
+  @@index([customerId])
+  @@index([publicToken])
+  @@map("invoices")
+}
+
+model InvoiceLineItem {
+  id          String   @id @default(cuid())
+  invoiceId   String
+  taxRateId   String?
+  description String
+  quantity    Float    @default(1)
+  unitPrice   Float    @default(0)
+  discount    Float    @default(0)
+  taxRate     Float    @default(0) // applied tax % at line level
+  amount      Float    @default(0)
+  sortOrder   Int      @default(0)
+
+  invoice   Invoice  @relation(fields: [invoiceId], references: [id], onDelete: Cascade)
+  taxRateRef TaxRate? @relation("LineItemTaxRate", fields: [taxRateId], references: [id], onDelete: SetNull)
+
+  @@index([invoiceId])
+  @@map("invoice_line_items")
+}
+
+// ---------------------------------------------------------------------------
+// Payments (readiness layer — future Stripe / Razorpay / PayPal / UPI)
+// ---------------------------------------------------------------------------
+
+model Payment {
+  id          String   @id @default(cuid())
+  invoiceId   String
+  provider    String   @default("MANUAL") // PaymentProvider: MANUAL|STRIPE|RAZORPAY|PAYPAL|UPI|CRYPTO
+  providerRef String? // external transaction id
+  amount      Float
+  currency    String   @default("USD")
+  status      String   @default("PENDING") // PaymentStatus: PENDING|COMPLETED|FAILED|REFUNDED
+  method      String? // card | netbanking | upi ...
+  paidAt      DateTime?
+  metadata    String? // JSON string
+  createdAt   DateTime @default(now())
+
+  invoice Invoice @relation(fields: [invoiceId], references: [id], onDelete: Cascade)
+
+  @@index([invoiceId])
+  @@map("payments")
+}
+
+// ---------------------------------------------------------------------------
+// Email delivery log (server-side only; never expose SMTP/keys)
+// ---------------------------------------------------------------------------
+
+model InvoiceEmailLog {
+  id         String   @id @default(cuid())
+  invoiceId  String
+  to         String
+  from       String
+  subject    String
+  status     String   @default("QUEUED") // EmailStatus: QUEUED|SENT|DELIVERED|BOUNCED|FAILED|REJECTED
+  providerId String? // resend message id
+  error      String?
+  sentAt     DateTime?
+  createdAt  DateTime @default(now())
+
+  invoice Invoice @relation(fields: [invoiceId], references: [id], onDelete: Cascade)
+
+  @@index([invoiceId])
+  @@map("invoice_email_logs")
+}
+
+// ---------------------------------------------------------------------------
+// Audit logging
+// ---------------------------------------------------------------------------
+
+model AuditEntry {
+  id             String   @id @default(cuid())
+  organizationId String?
+  invoiceId      String?
+  actorId        String?
+  action         String // AuditAction union
+  entityType     String?
+  entityId       String?
+  description    String?
+  ipHash         String?
+  userAgent      String?
+  metadata       String? // JSON string
+  createdAt      DateTime @default(now())
+
+  invoice Invoice? @relation(fields: [invoiceId], references: [id], onDelete: SetNull)
+  actor   User?    @relation("ResponsibleEntry", fields: [actorId], references: [id], onDelete: SetNull)
+
+  @@index([organizationId, createdAt])
+  @@index([invoiceId])
+  @@index([actorId])
+  @@map("audit_entries")
+}
