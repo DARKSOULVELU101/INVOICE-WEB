@@ -46,7 +46,7 @@ export function initials(name?: string | null) {
 }
 
 export function absoluteUrl(path: string) {
-  const base = process.env.NEXTAUTH_URL ?? process.env.VERCEL_URL ?? "http://localhost:3000";
+  const base = process.env.AUTH_URL ?? process.env.NEXTAUTH_URL ?? process.env.VERCEL_URL ?? "http://localhost:3000";
   const normalized = base.startsWith("http") ? base : `https://${base}`;
   return `${normalized}${path.startsWith("/") ? path : `/${path}`}`;
 }

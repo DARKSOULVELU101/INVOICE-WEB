@@ -7,6 +7,12 @@ import { signIn } from "@/core/auth/auth";
 import { slugify } from "@/core/lib/utils";
 import { redirect } from "next/navigation";
 
+function getAppOrigin() {
+  if (process.env.AUTH_URL) return process.env.AUTH_URL.replace(/\/$/, "");
+  if (process.env.VERCEL_URL) return `https://${process.env.VERCEL_URL}`;
+  return "http://localhost:3000";
+}
+
 const registerSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters"),
   email: z.string().email("Enter a valid email").transform((e) => e.toLowerCase()),
@@ -76,7 +82,11 @@ export async function registerUser(
     return created;
   });
 
-  await signIn("credentials", { email, password, redirectTo: "/dashboard" });
+  await signIn("credentials", {
+    email,
+    password,
+    redirectTo: `${getAppOrigin()}/dashboard`,
+  });
 
   redirect("/dashboard");
 }
@@ -97,7 +107,7 @@ export async function loginUser(
     await signIn("credentials", {
       email,
       password,
-      redirectTo: "/dashboard",
+      redirectTo: `${getAppOrigin()}/dashboard`,
     });
   } catch (err) {
     // next-auth throws a redirect after success; ignore it.
