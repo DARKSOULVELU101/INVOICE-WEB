@@ -1,0 +1,85 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --gv-brand: #1f41f5;
+    --gv-bg: #ffffff;
+    --gv-surface: #ffffff;
+    --gv-surface-subtle: #fafbfc;
+    --gv-border: hsl(228 11% 88%);
+    --gv-text: hsl(230 14% 12%);
+    --gv-text-muted: hsl(228 9% 42%);
+    --gv-ring: 51 99 255;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    @apply bg-surface text-ink-900 font-sans;
+    font-feature-settings: "cv11", "ss01", "ss03";
+    letter-spacing: -0.005em;
+  }
+
+  ::selection {
+    background: rgb(var(--gv-ring) / 0.18);
+    color: var(--gv-text);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+@layer components {
+  .gv-card {
+    @apply rounded-xl border border-border bg-surface shadow-sm;
+  }
+
+  .gv-card-hover {
+    @apply transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg hover:border-ink-200;
+  }
+
+  .gv-focus-ring {
+    @apply outline-none transition-shadow focus-visible:ring-2 focus-visible:ring-[rgb(var(--gv-ring)/0.55)] focus-visible:ring-offset-2;
+  }
+
+  .gv-input {
+    @apply gv-focus-ring w-full rounded-lg border border-border bg-white px-3 py-2 text-sm text-ink-900 placeholder:text-ink-300 shadow-sm transition-colors focus:border-brand-400;
+  }
+
+  .text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-brand-600 via-[#7c3aed] to-cyan-600;
+  }
+}
+
+@layer utilities {
+  .shimmer-sweep {
+    background: linear-gradient(
+      110deg,
+      transparent 8%,
+      rgba(255, 255, 255, 0.45) 18%,
+      transparent 33%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 2.6s linear infinite;
+  }
+}
