@@ -16,9 +16,9 @@ export function GenvouchMark({
     >
       <defs>
         <linearGradient id={gradientId} x1="0" y1="0" x2="48" y2="48">
-          <stop stopColor="#1F41F5" />
-          <stop offset="0.55" stopColor="#7C3AED" />
-          <stop offset="1" stopColor="#0891B2" />
+          <stop stopColor="#39489D" />
+          <stop offset="0.55" stopColor="#7E6AC6" />
+          <stop offset="1" stopColor="#AEC0E8" />
         </linearGradient>
       </defs>
       <rect width="48" height="48" rx="13" fill={`url(#${gradientId})`} />

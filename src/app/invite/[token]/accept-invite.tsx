@@ -33,7 +33,7 @@ export function AcceptInvite({ token, orgName }: { token: string; orgName: strin
         transition={{ duration: 0.35 }}
         className="w-full max-w-md rounded-2xl border border-border bg-white p-8 text-center shadow-xl"
       >
-        <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-brand-500 to-accent-600 text-white">
+        <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-brand-600 to-accent-500 text-white">
           <MailCheck className="h-7 w-7" />
         </div>
         <h1 className="mt-5 font-display text-2xl font-bold tracking-tight text-ink-900">

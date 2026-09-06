@@ -13,10 +13,10 @@ import { formatCurrency } from "@/core/lib/utils";
 import { statusLabel } from "@/core/lib/invoice-status";
 
 const BRAND = {
-  primary: "#1F41F5",
-  ink: "#171a23",
-  muted: "#66768f",
-  line: "#e5e8ef",
+  primary: "#39489D",
+  ink: "#232231",
+  muted: "#56536A",
+  line: "#E4E1EE",
   bg: "#ffffff",
 };
 
@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
   // Meta table
   metaRow: { flexDirection: "row", justifyContent: "space-between", marginBottom: 20 },
   metaCell: { flex: 1 },
-  metaBody: { padding: 10, backgroundColor: "#f7f8fb", borderRadius: 6 },
+  metaBody: { padding: 10, backgroundColor: "#F7F5FB", borderRadius: 6 },
   metaLabel: { fontSize: 7, letterSpacing: 1, color: BRAND.muted, marginBottom: 3 },
   metaValue: { fontSize: 10.5, fontWeight: 600 },
   // Items
@@ -95,13 +95,13 @@ const styles = StyleSheet.create({
 });
 
 const STATUS_COLORS: Record<string, string> = {
-  DRAFT: "#66768f",
-  PENDING: "#d97706",
-  SENT: "#2563eb",
-  PARTIALLY_PAID: "#7c3aed",
-  PAID: "#16a34a",
-  OVERDUE: "#dc2626",
-  CANCELLED: "#94a3b8",
+  DRAFT: "#85809A",
+  PENDING: "#A86F2C",
+  SENT: "#4A5FB6",
+  PARTIALLY_PAID: "#8F7BE0",
+  PAID: "#3E9D7B",
+  OVERDUE: "#B84454",
+  CANCELLED: "#A9A4BC",
 };
 
 function invoiceTitle(inv: InvoiceWithRelations) {

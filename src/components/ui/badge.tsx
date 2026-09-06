@@ -12,7 +12,7 @@ const badgeVariants = cva(
         warning: "bg-semantic-warningBg text-semantic-warning",
         danger: "bg-semantic-dangerBg text-semantic-danger",
         info: "bg-semantic-infoBg text-semantic-info",
-        accent: "bg-accent-violet/10 text-accent-violet",
+        accent: "bg-accent-lavender/10 text-accent-700",
       },
     },
     defaultVariants: { variant: "neutral" },

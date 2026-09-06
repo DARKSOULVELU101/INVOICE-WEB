@@ -454,7 +454,7 @@ function InvoiceSheet({ invoice, currency }: { invoice: ViewerInvoice; currency:
             // eslint-disable-next-line @next/next/no-img-element
             <img src={invoice.business.logo} alt="" className="h-11 w-11 rounded-lg object-cover" />
           ) : (
-            <span className="flex h-11 w-11 items-center justify-center rounded-lg bg-gradient-to-br from-brand-600 to-accent-600 text-lg font-bold text-white">
+            <span className="flex h-11 w-11 items-center justify-center rounded-lg bg-gradient-to-br from-brand-600 to-accent-500 text-lg font-bold text-white">
               {(invoice.business.name || "G")[0].toUpperCase()}
             </span>
           )}
@@ -473,7 +473,7 @@ function InvoiceSheet({ invoice, currency }: { invoice: ViewerInvoice; currency:
         </div>
       </div>
 
-      <div className="my-6 h-[2px] bg-gradient-to-r from-brand-600 to-accent-600" />
+      <div className="my-6 h-[2px] bg-gradient-to-r from-brand-600 to-accent-500" />
 
       {/* Parties */}
       <div className="grid grid-cols-1 gap-8 sm:grid-cols-2">

@@ -10,10 +10,10 @@ export function AuthShell({ children, mode }: { children: React.ReactNode; mode:
   return (
     <div className="grid min-h-screen lg:grid-cols-[1.1fr_1fr]">
       {/* Brand side */}
-      <div className="relative hidden overflow-hidden bg-ink-950 lg:block">
+      <div className="relative hidden overflow-hidden bg-gradient-to-br from-[#0E1329] via-[#1B2348] to-[#2B387A] lg:block">
         <div className="pointer-events-none absolute inset-0">
           <div className="absolute -left-20 top-1/4 h-[420px] w-[420px] rounded-full bg-brand-600/30 blur-3xl" />
-          <div className="absolute bottom-0 right-0 h-[380px] w-[380px] rounded-full bg-accent-600/20 blur-3xl" />
+          <div className="absolute bottom-0 right-0 h-[380px] w-[380px] rounded-full bg-accent-500/20 blur-3xl" />
           <div className="absolute left-1/2 top-0 h-px w-2/3 bg-gradient-to-r from-transparent via-white/25 to-transparent" />
         </div>
         <div className="relative z-10 flex h-full flex-col justify-between p-12">
@@ -54,10 +54,12 @@ export function AuthShell({ children, mode }: { children: React.ReactNode; mode:
       </div>
 
       {/* Form side */}
-      <div className="relative flex flex-col justify-center overflow-hidden bg-white px-6 py-10 sm:px-12">
-        <div className="pointer-events-none absolute inset-0 opacity-[0.03] lg:hidden">
-          <div className="absolute left-1/2 top-0 h-72 w-72 -translate-x-1/2 rounded-full bg-brand-500 blur-3xl" />
+      <div className="relative flex flex-col justify-center overflow-hidden bg-surface-frost px-6 py-10 sm:px-12">
+        <div className="pointer-events-none absolute inset-0 opacity-60 lg:hidden">
+          <div className="absolute left-1/2 top-0 h-72 w-72 -translate-x-1/2 rounded-full bg-accent-200/60 blur-3xl" />
         </div>
+        <div className="pointer-events-none absolute -top-32 right-[-10%] hidden h-[420px] w-[420px] rounded-full bg-brand-100/70 blur-[100px] lg:block" />
+        <div className="pointer-events-none absolute bottom-[-20%] left-[-8%] hidden h-[380px] w-[380px] rounded-full bg-accent-200/50 blur-[100px] lg:block" />
         <div className="relative z-10 mx-auto w-full max-w-sm">
           <div className="mb-8 flex items-center gap-2.5 lg:hidden">
             <GenvouchMark className="h-9 w-9" gradientId="auth-mark-mobile-g" />

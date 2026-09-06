@@ -162,7 +162,7 @@ export default async function DashboardPage() {
 
         {/* Quick actions / status */}
         <div className="space-y-6">
-          <Card className="border-none bg-gradient-to-br from-brand-600 via-accent-600 to-cyan-600 p-6 text-white shadow-lg">
+          <Card className="border-none bg-gradient-to-br from-brand-700 via-accent-500 to-accent-200 p-6 text-white shadow-lg">
             <CheckCircle2 className="h-8 w-8 opacity-90" />
             <h3 className="mt-3 font-display text-lg font-semibold">Create your next invoice</h3>
             <p className="mt-1 text-sm text-white/80">

@@ -125,7 +125,7 @@ export function PublicInvoiceSheet({ invoice, token }: { invoice: PublicInvoice;
         transition={{ duration: 0.35 }}
         className="mx-auto w-full max-w-2xl overflow-hidden rounded-2xl bg-white shadow-xl"
       >
-        <div className="h-1.5 w-full bg-gradient-to-r from-brand-600 via-accent-600 to-cyan-600" />
+        <div className="h-1.5 w-full bg-gradient-to-r from-brand-600 via-accent-400 to-accent-200" />
         <div className="p-6 sm:p-10">
           {/* Head */}
           <div className="flex flex-wrap items-start justify-between gap-6">
@@ -134,7 +134,7 @@ export function PublicInvoiceSheet({ invoice, token }: { invoice: PublicInvoice;
                 // eslint-disable-next-line @next/next/no-img-element
                 <img src={invoice.business.logo} alt="" className="h-12 w-12 rounded-lg object-cover" />
               ) : (
-                <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-brand-600 to-accent-600 text-xl font-bold text-white">
+                <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-brand-600 to-accent-500 text-xl font-bold text-white">
                   {(invoice.business.name || "G")[0].toUpperCase()}
                 </span>
               )}

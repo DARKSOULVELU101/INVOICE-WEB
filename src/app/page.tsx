@@ -37,7 +37,7 @@ function DashboardMock() {
       <div className="grid gap-0 md:grid-cols-[220px_1fr]">
         <div className="hidden border-r border-border bg-surface-subtle p-4 md:block">
           <div className="mb-4 flex items-center gap-2 rounded-lg bg-brand-500/10 px-3 py-2">
-            <span className="h-6 w-6 rounded-md bg-gradient-to-br from-brand-500 to-accent-600" />
+            <span className="h-6 w-6 rounded-md bg-gradient-to-br from-brand-600 to-accent-500" />
             <div>
               <p className="text-xs font-semibold text-ink-900">Studio Inc.</p>
               <p className="text-[10px] text-ink-400">Organization</p>
@@ -174,13 +174,18 @@ export default function LandingPage() {
 
         {/* Hero */}
         <section className="relative mx-auto flex max-w-7xl flex-col items-center px-6 pb-24 pt-36 text-center">
+          <div aria-hidden className="pointer-events-none absolute inset-0 -z-10">
+            <div className="absolute -top-28 left-1/2 h-[500px] w-[760px] -translate-x-1/2 rounded-full bg-brand-100/70 blur-[120px]" />
+            <div className="absolute right-[6%] top-[46%] h-[360px] w-[360px] rounded-full bg-accent-200/60 blur-[110px]" />
+            <div className="absolute -bottom-16 left-[8%] h-[300px] w-[420px] rounded-full bg-accent-100/80 blur-[100px]" />
+          </div>
           <motion.div
             initial={{ opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="mb-6 inline-flex items-center gap-2 rounded-full border border-brand-100 bg-brand-50/70 px-4 py-1.5 text-xs font-semibold text-brand-700"
+            className="eyebrow"
           >
-            <Sparkles className="h-3.5 w-3.5" />
+            <Sparkles className="h-3 w-3" />
             The modern business operating system for invoices
           </motion.div>
 
@@ -236,7 +241,7 @@ export default function LandingPage() {
         {/* Features */}
         <section id="features" className="relative mx-auto max-w-7xl px-6 py-24">
           <div className="mb-16 text-center">
-            <p className="text-sm font-semibold uppercase tracking-widest text-brand-600">Everything you need</p>
+            <span className="eyebrow">Everything you need</span>
             <h2 className="mt-3 font-display text-4xl font-bold tracking-tight text-ink-900 sm:text-5xl">
               Premium tools. Zero friction.
             </h2>
@@ -251,7 +256,7 @@ export default function LandingPage() {
                 transition={{ duration: 0.45, delay: (i % 3) * 0.08 }}
                 className="gv-card gv-card-hover group p-7"
               >
-                <div className="mb-5 inline-flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br from-brand-500 to-accent-600 text-white shadow-sm group-hover:scale-105 group-hover:shadow-md transition-all duration-200">
+                <div className="mb-5 inline-flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br from-brand-600 to-accent-500 text-white shadow-sm group-hover:scale-105 group-hover:shadow-md transition-all duration-200">
                   <f.icon className="h-5 w-5" />
                 </div>
                 <h3 className="font-display text-lg font-semibold text-ink-900">{f.title}</h3>
@@ -265,7 +270,7 @@ export default function LandingPage() {
         <section id="security" className="border-t border-border bg-surface-subtle">
           <div className="mx-auto grid max-w-7xl gap-12 px-6 py-24 md:grid-cols-2 md:items-center">
             <div>
-              <p className="text-sm font-semibold uppercase tracking-widest text-brand-600">Enterprise-grade</p>
+              <span className="eyebrow">Enterprise-grade</span>
               <h2 className="mt-3 font-display text-4xl font-bold tracking-tight text-ink-900">
                 Security built into the foundation.
               </h2>

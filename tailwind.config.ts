@@ -20,8 +20,8 @@ const config: Config = {
         overlay: colors.overlay,
       },
       fontFamily: {
-        sans: [...typography.fontFamily.sans],
-        display: [...typography.fontFamily.display],
+        sans: ["var(--font-kateru)", ...typography.fontFamily.sans],
+        display: ["var(--font-asfar)", ...typography.fontFamily.display],
         mono: [...typography.fontFamily.mono],
       },
       borderRadius: radius,

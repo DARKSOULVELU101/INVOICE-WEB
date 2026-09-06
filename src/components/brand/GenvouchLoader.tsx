@@ -65,9 +65,9 @@ export function GenvouchLoader({ minDisplayMs = 2400 }: { minDisplayMs?: number 
               >
                 <defs>
                   <linearGradient id="loader-grad" x1="0" y1="0" x2="48" y2="48">
-                    <stop stopColor="#1F41F5" />
-                    <stop offset="0.55" stopColor="#7C3AED" />
-                    <stop offset="1" stopColor="#0891B2" />
+                    <stop stopColor="#39489D" />
+                    <stop offset="0.55" stopColor="#7E6AC6" />
+                    <stop offset="1" stopColor="#AEC0E8" />
                   </linearGradient>
                 </defs>
                 <motion.rect
@@ -91,9 +91,9 @@ export function GenvouchLoader({ minDisplayMs = 2400 }: { minDisplayMs?: number 
               >
                 <defs>
                   <linearGradient id="loader-grad-glyph" x1="0" y1="0" x2="48" y2="48">
-                    <stop stopColor="#1F41F5" />
-                    <stop offset="0.55" stopColor="#7C3AED" />
-                    <stop offset="1" stopColor="#0891B2" />
+                    <stop stopColor="#39489D" />
+                    <stop offset="0.55" stopColor="#7E6AC6" />
+                    <stop offset="1" stopColor="#AEC0E8" />
                   </linearGradient>
                 </defs>
                 <motion.path
@@ -175,7 +175,7 @@ export function GenvouchLoader({ minDisplayMs = 2400 }: { minDisplayMs?: number 
                 >
                   <span className="h-px w-8 bg-gradient-to-r from-transparent to-brand-500" />
                   {SUBTITLE}
-                  <span className="h-px w-8 bg-gradient-to-l from-transparent to-cyan-500" />
+                  <span className="h-px w-8 bg-gradient-to-l from-transparent to-accent-400" />
                 </motion.p>
               ) : null}
             </AnimatePresence>
@@ -196,7 +196,7 @@ export function GenvouchLoader({ minDisplayMs = 2400 }: { minDisplayMs?: number 
             transition={{ delay: 0.2, duration: 0.4 }}
           >
             <motion.div
-              className="h-full origin-left bg-gradient-to-r from-brand-600 via-accent-500 to-cyan-500"
+              className="h-full origin-left bg-gradient-to-r from-brand-600 via-accent-400 to-accent-200"
               initial={{ scaleX: 0 }}
               animate={{ scaleX: 1 }}
               transition={{ duration: minDisplayMs / 1000 - 0.4, ease: [0.65, 0, 0.35, 1] }}

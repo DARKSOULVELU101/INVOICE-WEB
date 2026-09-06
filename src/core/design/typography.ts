@@ -1,7 +1,7 @@
 export const typography = {
   fontFamily: {
-    sans: ["Inter Variable", "Inter", "system-ui", "-apple-system", "Segoe UI", "sans-serif"],
-    display: ["Space Grotesk Variable", "Space Grotesk", "Inter", "sans-serif"],
+    sans: ["Kateru", "Segoe UI", "system-ui", "-apple-system", "sans-serif"],
+    display: ["Asfar", "Georgia", "serif"],
     mono: ["ui-monospace", "SFMono-Regular", "Menlo", "monospace"],
   },
   weight: {
@@ -24,11 +24,11 @@ export const typography = {
     "6xl": ["4rem", "1"],
   } as const,
   letterSpacing: {
-    tightest: "-0.025em",
-    tight: "-0.018em",
+    tightest: "-0.035em",
+    tight: "-0.025em",
     normal: "0",
     wide: "0.025em",
     wider: "0.05em",
-    widest: "0.12em",
+    widest: "0.14em",
   },
 } as const;

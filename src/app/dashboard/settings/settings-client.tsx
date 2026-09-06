@@ -220,7 +220,7 @@ export function SettingsClient({
               <Card key={b.id} hover className="p-5">
                 <div className="flex items-start justify-between">
                   <div className="flex items-center gap-3">
-                    <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br from-brand-500 to-accent-600 text-sm font-bold text-white">
+                    <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br from-brand-600 to-accent-500 text-sm font-bold text-white">
                       {b.name.slice(0, 1).toUpperCase()}
                     </span>
                     <div>

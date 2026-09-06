@@ -4,14 +4,14 @@
 
 @layer base {
   :root {
-    --gv-brand: #1f41f5;
-    --gv-bg: #ffffff;
+    --gv-brand: #39489d;
+    --gv-bg: #f6f4fa;
     --gv-surface: #ffffff;
-    --gv-surface-subtle: #fafbfc;
-    --gv-border: hsl(228 11% 88%);
-    --gv-text: hsl(230 14% 12%);
-    --gv-text-muted: hsl(228 9% 42%);
-    --gv-ring: 51 99 255;
+    --gv-surface-subtle: #f7f5fb;
+    --gv-border: #e4e1ee;
+    --gv-text: #232231;
+    --gv-text-muted: #56536a;
+    --gv-ring: 57 72 157;
   }
 
   * {
@@ -28,6 +28,13 @@
     @apply bg-surface text-ink-900 font-sans;
     font-feature-settings: "cv11", "ss01", "ss03";
     letter-spacing: -0.005em;
+  }
+
+  h1,
+  h2,
+  h3,
+  .font-display {
+    letter-spacing: -0.02em;
   }
 
   ::selection {
@@ -51,23 +58,23 @@
 
 @layer components {
   .gv-card {
-    @apply rounded-xl border border-border bg-surface shadow-sm;
+    @apply rounded-xl border border-border bg-surface shadow-clay;
   }
 
   .gv-card-hover {
-    @apply transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg hover:border-ink-200;
+    @apply transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] hover:shadow-clayLift;
   }
 
   .gv-focus-ring {
-    @apply outline-none transition-shadow focus-visible:ring-2 focus-visible:ring-[rgb(var(--gv-ring)/0.55)] focus-visible:ring-offset-2;
+    @apply outline-none transition-shadow focus-visible:ring-2 focus-visible:ring-[rgb(var(--gv-ring)/0.55)] focus-visible:ring-offset-2 focus-visible:ring-offset-surface;
   }
 
   .gv-input {
-    @apply gv-focus-ring w-full rounded-lg border border-border bg-white px-3 py-2 text-sm text-ink-900 placeholder:text-ink-300 shadow-sm transition-colors focus:border-brand-400;
+    @apply gv-focus-ring w-full rounded-lg border border-border bg-white px-3 py-2 text-sm text-ink-900 placeholder:text-ink-300 shadow-xs transition-colors focus:border-brand-400;
   }
 
   .text-gradient {
-    @apply bg-clip-text text-transparent bg-gradient-to-r from-brand-600 via-[#7c3aed] to-cyan-600;
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-brand-600 via-[#7E6AC6] to-[#AEC0E8];
   }
 }
 
@@ -76,10 +83,42 @@
     background: linear-gradient(
       110deg,
       transparent 8%,
-      rgba(255, 255, 255, 0.45) 18%,
+      rgba(255, 255, 255, 0.5) 18%,
       transparent 33%
     );
     background-size: 200% 100%;
     animation: shimmer 2.6s linear infinite;
+  }
+
+  .clay {
+    box-shadow:
+      0 1px 1px rgb(22 21 31 / 0.05),
+      0 12px 28px -12px rgb(57 72 157 / 0.18),
+      inset 0 1px 0 rgb(255 255 255 / 0.7);
+  }
+
+  .clay-lift {
+    box-shadow:
+      0 2px 4px rgb(22 21 31 / 0.05),
+      0 22px 44px -16px rgb(57 72 157 / 0.26),
+      inset 0 1px 0 rgb(255 255 255 / 0.8);
+  }
+
+  .clay-press {
+    box-shadow:
+      0 1px 2px rgb(22 21 31 / 0.06),
+      inset 0 2px 6px rgb(57 72 157 / 0.12);
+  }
+
+  .frost-panel {
+    background: linear-gradient(180deg, #ffffff 0%, hsl(248 34% 96%) 100%);
+  }
+
+  .eyebrow {
+    @apply inline-flex items-center gap-2 rounded-full px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.2em] text-brand-700 bg-brand-50 border border-brand-100;
+  }
+
+  .hairline {
+    @apply h-px w-full bg-gradient-to-r from-transparent via-ink-200 to-transparent;
   }
 }

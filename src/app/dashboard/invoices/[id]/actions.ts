@@ -186,29 +186,29 @@ function emailTemplate({
     : "On receipt";
   return `<!DOCTYPE html>
 <html>
-<body style="margin:0;background:#f4f5f7;font-family:-apple-system,Segoe UI,Roboto,sans-serif;">
-  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#f4f5f7;padding:32px 16px;">
+<body style="margin:0;background:#F1EEF8;font-family:-apple-system,Segoe UI,Roboto,sans-serif;">
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#F1EEF8;padding:32px 16px;">
     <tr><td align="center">
       <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:560px;background:#ffffff;border-radius:16px;overflow:hidden;">
         <tr>
-          <td style="background:linear-gradient(135deg,#1F41F5,#7C3AED 60%,#0891B2);padding:32px 36px;">
+          <td style="background:linear-gradient(135deg,#39489D,#7E6AC6 60%,#AEC0E8);padding:32px 36px;">
             <div style="font-size:22px;font-weight:700;color:#ffffff;letter-spacing:-0.02em;">GENVOUCH</div>
             <div style="font-size:11px;color:rgba(255,255,255,0.75);letter-spacing:0.2em;margin-top:2px;">INVOICE STUDIO</div>
           </td>
         </tr>
         <tr><td style="padding:32px 36px;">
-          <p style="margin:0 0 6px;font-size:13px;color:#66768f;">Hi ${customerName},</p>
-          <p style="margin:0 0 20px;font-size:16px;color:#171a23;line-height:1.5;">
+          <p style="margin:0 0 6px;font-size:13px;color:#56536A;">Hi ${customerName},</p>
+          <p style="margin:0 0 20px;font-size:16px;color:#232231;line-height:1.5;">
             <strong>${businessName}</strong> has sent you invoice <strong>${invoiceNumber}</strong>.
           </p>
-          <table style="width:100%;border:1px solid #e5e8ef;border-radius:12px;margin-bottom:24px;">
+          <table style="width:100%;border:1px solid #E4E1EE;border-radius:12px;margin-bottom:24px;">
             <tr>
-              <td style="padding:14px 16px;font-size:12px;color:#66768f;">Status<br/><strong style="color:#171a23;">${status}</strong></td>
-              <td style="padding:14px 16px;font-size:12px;color:#66768f;">Due date<br/><strong style="color:#171a23;">${due}</strong></td>
-              <td style="padding:14px 16px;font-size:12px;color:#66768f;text-align:right;">Amount due<br/><strong style="color:#1F41F5;font-size:18px;">${totalLocale}</strong></td>
+              <td style="padding:14px 16px;font-size:12px;color:#56536A;">Status<br/><strong style="color:#232231;">${status}</strong></td>
+              <td style="padding:14px 16px;font-size:12px;color:#56536A;">Due date<br/><strong style="color:#232231;">${due}</strong></td>
+              <td style="padding:14px 16px;font-size:12px;color:#56536A;text-align:right;">Amount due<br/><strong style="color:#39489D;font-size:18px;">${totalLocale}</strong></td>
             </tr>
           </table>
-          <a href="${link}" style="display:inline-block;background:linear-gradient(135deg,#1F41F5,#7C3AED);color:#ffffff;text-decoration:none;font-size:14px;font-weight:600;padding:14px 28px;border-radius:10px;">View invoice</a>
+          <a href="${link}" style="display:inline-block;background:linear-gradient(90deg,#39489D,#7E6AC6);color:#ffffff;text-decoration:none;font-size:14px;font-weight:600;padding:14px 28px;border-radius:10px;">View invoice</a>
           <p style="margin:28px 0 0;font-size:12px;color:#8594aa;line-height:1.6;">
             This link is protected by a signed token and doesn't require an account.<br/>
             Powered by GENVOUCH TECHNOLOGIES PVT.

@@ -4,13 +4,13 @@ export const invoiceStatusMeta: Record<
   InvoiceStatus,
   { label: string; color: string; bg: string; dot: string }
 > = {
-  DRAFT: { label: "Draft", color: "#66768f", bg: "#eef0f3", dot: "#66768f" },
-  PENDING: { label: "Pending", color: "#b45309", bg: "#fffbeb", dot: "#f59e0b" },
-  SENT: { label: "Sent", color: "#1d4ed8", bg: "#eff6ff", dot: "#2563eb" },
-  PARTIALLY_PAID: { label: "Partially Paid", color: "#6d28d9", bg: "#f5f3ff", dot: "#7c3aed" },
-  PAID: { label: "Paid", color: "#15803d", bg: "#ecfdf3", dot: "#16a34a" },
-  OVERDUE: { label: "Overdue", color: "#b91c1c", bg: "#fef2f2", dot: "#dc2626" },
-  CANCELLED: { label: "Cancelled", color: "#475569", bg: "#f1f5f9", dot: "#94a3b8" },
+  DRAFT: { label: "Draft", color: "#85809A", bg: "#EEEBF5", dot: "#85809A" },
+  PENDING: { label: "Pending", color: "#A86F2C", bg: "#FAF4E9", dot: "#D79A5A" },
+  SENT: { label: "Sent", color: "#4A5FB6", bg: "#EEF3FB", dot: "#3B63A8" },
+  PARTIALLY_PAID: { label: "Partially Paid", color: "#8F7BE0", bg: "#EEE9FA", dot: "#8F7BE0" },
+  PAID: { label: "Paid", color: "#2F7D5C", bg: "#EAF5F0", dot: "#3E9D7B" },
+  OVERDUE: { label: "Overdue", color: "#B84454", bg: "#FBEFF1", dot: "#CB6E84" },
+  CANCELLED: { label: "Cancelled", color: "#6B6783", bg: "#F1EEF8", dot: "#A9A4BC" },
 };
 
 export function statusLabel(status: string) {
