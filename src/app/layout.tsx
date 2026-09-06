@@ -2,28 +2,33 @@ import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 
-const kateru = localFont({
+const futura = localFont({
   src: [
     {
-      path: "./fonts/Kateru-Regular.ttf",
+      path: "./fonts/FuturaNext-Book.otf",
       weight: "400",
       style: "normal",
     },
     {
-      path: "./fonts/Kateru-Italic.ttf",
+      path: "./fonts/FuturaNext-BookOblique.otf",
       weight: "400",
       style: "italic",
     },
+    {
+      path: "./fonts/FuturaNext-Bold.otf",
+      weight: "700",
+      style: "normal",
+    },
   ],
-  variable: "--font-kateru",
+  variable: "--font-futura",
   display: "swap",
 });
 
-const asfar = localFont({
-  src: "./fonts/Asfar-Regular.ttf",
+const corpta = localFont({
+  src: "./fonts/Corpta-Regular.otf",
   weight: "400",
   style: "normal",
-  variable: "--font-asfar",
+  variable: "--font-corpta",
   display: "swap",
 });
 
@@ -59,7 +64,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" suppressHydrationWarning className={`${kateru.variable} ${asfar.variable}`}>
+    <html lang="en" suppressHydrationWarning className={`${futura.variable} ${corpta.variable}`}>
       <body className="min-h-screen bg-surface font-sans antialiased">{children}</body>
     </html>
   );

@@ -1,7 +1,7 @@
 export const typography = {
   fontFamily: {
-    sans: ["Kateru", "Segoe UI", "system-ui", "-apple-system", "sans-serif"],
-    display: ["Asfar", "Georgia", "serif"],
+    sans: ["FuturaNext", "Segoe UI", "system-ui", "-apple-system", "sans-serif"],
+    display: ["Corpta", "Impact", "Haettenschweiler", "sans-serif"],
     mono: ["ui-monospace", "SFMono-Regular", "Menlo", "monospace"],
   },
   weight: {
